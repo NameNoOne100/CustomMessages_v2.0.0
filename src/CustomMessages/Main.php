@@ -25,10 +25,20 @@
 
     }
 
-    public function onJoin() {
+    public function onJoin(PlayerJoinEvent $event) {
 
+      $player = $event->getPlayer();
       chdir($this->getDataFolder());
       $file = file_get_contents("config.yml");
+      str_replace("{PLAYER}", $player->getName(), $file);
       $str = strstr("join-message: ", $file);
 
       if(preg_match("/\n/", $str, $matches)) {
+
+        $file = str_replace("join-message: ", "", $file);
+        $file = strstr($text, $matches[0], true);
+        $event->setJoinMessage($file);
+
+      }
+
+    }
