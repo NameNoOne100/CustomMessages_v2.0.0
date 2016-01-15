@@ -15,7 +15,7 @@
 
       if(!(file_exists($this->getDataFolder()))) {
 
-        @mkdri($this->getDataFolder());
+        @mkdir($this->getDataFolder());
         chdir($this->getDataFolder());
         touch("config.yml");
         file_put_contents("config.yml", "join-message: \n");
