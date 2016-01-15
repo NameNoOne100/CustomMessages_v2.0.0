@@ -21,7 +21,14 @@
         file_put_contents("config.yml", "join-message: \n");
         file_put_contents("config.yml", "quit-message: \n", FILE_APPEND);
         
-
       }
 
     }
+
+    public function onJoin() {
+
+      chdir($this->getDataFolder());
+      $file = file_get_contents("config.yml");
+      $str = strstr("join-message: ", $file);
+
+      if(preg_match("/\n/", $str, $matches)) {
