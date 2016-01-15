@@ -36,9 +36,31 @@
       if(preg_match("/\n/", $str, $matches)) {
 
         $file = str_replace("join-message: ", "", $file);
-        $file = strstr($text, $matches[0], true);
+        $file = strstr($file, $matches[0], true);
         $event->setJoinMessage($file);
 
       }
 
     }
+
+    public function onQuit(PlayerQuitEvent $event) {
+
+      $player = $event->getPlayer();
+      chdir($this->getDataFolder());
+      $file = file_get_contents("config.yml");
+      str_replace("{PLAYER}", $player->getName(), $file);
+      $str = strstr("quit-message: ", $file);
+
+      if(preg_match("/\n/", $str, $matches)) {
+
+        $file = str_replace("quit-message: ", "", $file);
+        $file = strstr($file, $matches[0], true);
+        $event->setQuitMessage($file);
+
+      }
+
+    }
+
+  }
+
+?>
